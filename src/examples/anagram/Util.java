@@ -8,36 +8,42 @@ public class Util {
 
 	public static boolean isAnagram( String left, String right ) {
 		
-		boolean valid = true;
+		boolean valid = false;
 		boolean nullOrEmpty = left == null || left.length() < 1 || right == null || right.length() < 1;
 		
 		if ( nullOrEmpty ) {
 			
 			valid = false;
 			
+		}
+		else if ( left.length() != right.length() ) {
+			
+			valid = false;
+			
 		} else {
+			
+			//convert strings to lists for stream manipulation
 			
 			List<String> leftList = new ArrayList<String>();
 			List<String> rightList = new ArrayList<String>();
 			
 			for ( int i = 0; i < left.length(); i++ ) {
 				
-				String character = "" + left.charAt( i );
-				leftList.add( character );
+				String leftCharacter = "" + left.charAt( i );
+				leftList.add( leftCharacter );
+				
+				String rightCharacter = "" + right.charAt( i );
+				rightList.add( rightCharacter );
 				
 			}
+			
+			//sort
 			
 			List<String> leftResult = leftList.stream().sorted().collect( Collectors.toList() );
-			
-			for ( int i = 0; i < right.length(); i++ ) {
-				
-				String character = "" + right.charAt( i );
-				rightList.add( character );
-				
-			}
-			
 			List<String> rightResult = rightList.stream().sorted().collect( Collectors.toList() );
-					
+			
+			//compare
+			
 			for ( int i = 0; i < leftResult.size(); i++ ) {
 				
 				String leftCharacter = leftResult.get( i );
